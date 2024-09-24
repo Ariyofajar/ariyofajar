@@ -30,14 +30,4 @@ void loop() {
   digitalWrite(led3, HIGH);  // LED3 ON
   delay(delayTime);
 
-  // Nyala LED dari kanan ke kiri (kembali)
-  digitalWrite(led1, LOW);   // LED1 OFF
-  digitalWrite(led2, HIGH);  // LED2 ON
-  digitalWrite(led3, LOW);   // LED3 OFF
-  delay(delayTime);
-
-  digitalWrite(led1, HIGH);  // LED1 ON
-  digitalWrite(led2, LOW);   // LED2 OFF
-  digitalWrite(led3, LOW);   // LED3 OFF
-  delay(delayTime);
 }
