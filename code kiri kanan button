@@ -1,0 +1,67 @@
+// Pin LED
+int led1 = 11;
+int led2 = 12;
+int led3 = 13;
+
+// Pin tombol
+int buttonPin = 7;
+
+// Variabel untuk mengatur waktu nyala
+int delayTime = 500; // 500ms atau 0.5 detik
+
+// Variabel untuk menyimpan status tombol dan status LED
+int buttonState = 0;
+int lastButtonState = 0;  // Untuk menyimpan status tombol sebelumnya
+bool isRunning = false;   // Status untuk mengontrol apakah LED berjalan atau tidak
+
+void setup() {
+  // Set pin sebagai output untuk LED
+  pinMode(led1, OUTPUT);
+  pinMode(led2, OUTPUT);
+  pinMode(led3, OUTPUT);
+
+  // Set pin tombol sebagai input
+  pinMode(buttonPin, INPUT);
+}
+
+void loop() {
+  // Membaca status tombol saat ini
+  buttonState = digitalRead(buttonPin);
+
+  // Deteksi perubahan dari LOW ke HIGH (tekanan tombol)
+  if (buttonState != lastButtonState) {
+    // Jika tombol ditekan (nilai HIGH)
+    if (buttonState == HIGH) {
+      isRunning = !isRunning;  // Toggle status running
+    }
+    // Tambahkan sedikit delay untuk debounce tombol
+    delay(50);
+  }
+
+  // Simpan status tombol saat ini sebagai status terakhir
+  lastButtonState = buttonState;
+
+  // Jika isRunning true, nyalakan LED secara bergantian
+  if (isRunning) {
+    // Nyala LED dari kiri ke kanan
+    digitalWrite(led1, HIGH);  // LED1 ON
+    digitalWrite(led2, LOW);   // LED2 OFF
+    digitalWrite(led3, LOW);   // LED3 OFF
+    delay(delayTime);          // Tunggu selama delayTime
+
+    digitalWrite(led1, LOW);   // LED1 OFF
+    digitalWrite(led2, HIGH);  // LED2 ON
+    digitalWrite(led3, LOW);   // LED3 OFF
+    delay(delayTime);
+
+    digitalWrite(led1, LOW);   // LED1 OFF
+    digitalWrite(led2, LOW);   // LED2 OFF
+    digitalWrite(led3, HIGH);  // LED3 ON
+    delay(delayTime);
+  } else {
+    // Matikan semua LED jika tidak berjalan
+    digitalWrite(led1, LOW);
+    digitalWrite(led2, LOW);
+    digitalWrite(led3, LOW);
+  }
+}
